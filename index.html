@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nishu Bhandari | Data Analyst & CSE Portfolio</title>
+  
+  <meta name="description" content="Portfolio of Nishu Bhandari - Data Analyst, Python Developer, and Computer Science student at LPU specializing in Data Analysis, Machine Learning, and Power BI." />
+  <meta name="author" content="Nishu Bhandari" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="relative min-h-screen text-slate-100 selection:bg-sky-500 selection:text-white flex flex-col justify-between">
+
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl gradient-bg nb-secret-logo flex items-center justify-center text-white font-code font-bold text-sm shadow-md group-hover:scale-105 transition-transform" title="NB Logo">
+          NB
+        </div>
+        <div>
+          <span class="font-bold text-base tracking-tight block text-slate-100 leading-none">Nishu Bhandari</span>
+          <span class="text-[10px] font-code text-sky-400 block mt-0.5">Data Analyst & CSE</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="certifications.html" class="nav-link">Certifications</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="downloadCV()" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg gradient-bg text-white font-medium text-xs shadow-md hover:opacity-90 transition-all">
+          <i class="fas fa-file-download text-sm"></i>
+          <span>Download CV</span>
+        </button>
+
+        <button id="theme-toggle-btn" class="p-2 rounded-lg glass-card text-slate-300 hover:text-white hover:border-sky-500 transition-colors" aria-label="Toggle Theme">
+          <i id="theme-icon" class="fas fa-sun text-amber-400"></i>
+        </button>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-72 bg-slate-900/95 backdrop-blur-xl border-l border-slate-800 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between p-6">
+    <div>
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center text-white font-code font-bold text-xs">NB</div>
+          <span class="font-bold text-base text-slate-100">Nishu Bhandari</span>
+        </div>
+        <button id="close-menu-btn" class="text-slate-400 hover:text-white p-2">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-5 text-sm font-medium mb-6">
+        <a href="index.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">Home</a>
+        <a href="about.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">About</a>
+        <a href="skills.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">Skills</a>
+        <a href="projects.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">Projects</a>
+        <a href="certifications.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">Certifications</a>
+        <a href="contact.html" class="mobile-nav-link text-slate-300 hover:text-sky-400">Contact</a>
+      </nav>
+
+      <button onclick="downloadCV()" class="w-full py-2.5 rounded-lg gradient-bg text-white font-medium text-xs flex items-center justify-center gap-2">
+        <i class="fas fa-file-download"></i>
+        <span>Download CV</span>
+      </button>
+    </div>
+
+    <div class="pt-6 border-t border-slate-800 flex items-center justify-around text-slate-400">
+      <a href="https://github.com/NishuBhandari" target="_blank" class="hover:text-sky-400 text-lg"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/nishu-bhandarii" target="_blank" class="hover:text-sky-400 text-lg"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:nishubhandari030@gmail.com" class="hover:text-sky-400 text-lg"><i class="fas fa-envelope"></i></a>
+      <a href="tel:+918580820843" class="hover:text-sky-400 text-lg"><i class="fas fa-phone"></i></a>
+    </div>
+  </div>
+
+  <main class="relative z-10 pt-20 pb-10 flex-1">
+
+    <!-- HOME HERO SECTION -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl">
+        
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+          
+          <!-- Profile Photo Container -->
+          <div class="flex flex-col items-center">
+            <input type="file" id="profileInput" accept="image/*" style="display: none;" />
+
+            <div class="profile-photo" id="profilePhotoContainer" title="Profile Photo" style="cursor: pointer;">
+              <img id="profilePreview" src="assets/default-profile.jpg" alt="Profile Photo" />
+            </div>
+          </div>
+
+          <!-- Hero Details -->
+          <div class="flex-1 text-center md:text-left space-y-4">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-medium text-emerald-400">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Open to Data Science & Analytics Roles</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-100">
+              Nishu Bhandari
+            </h1>
+
+            <div class="h-8 flex items-center justify-center md:justify-start text-lg sm:text-xl font-code text-slate-300">
+              <span>I am a&nbsp;</span>
+              <span id="typewriter-text" class="text-sky-400 border-r-2 border-sky-400 pr-1"></span>
+            </div>
+
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
+              Computer Science & Engineering student at <strong class="text-slate-200">Lovely Professional University</strong>. Specializing in converting raw metrics into business intelligence with <span class="text-sky-400 font-medium">Python</span>, <span class="text-indigo-400 font-medium">Power BI</span>, exploratory data analysis, and predictive machine learning models.
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <button onclick="downloadCV()" class="glow-btn px-6 py-3 rounded-xl gradient-bg text-white font-medium text-sm flex items-center gap-2 shadow-md">
+                <i class="fas fa-file-download"></i>
+                <span>Download CV</span>
+              </button>
+
+              <a href="projects.html" class="px-6 py-3 rounded-xl glass-card text-slate-200 hover:border-sky-500 font-medium text-sm flex items-center gap-2">
+                <i class="fas fa-layer-group text-sky-400"></i>
+                <span>View Projects</span>
+              </a>
+
+              <a href="contact.html" class="px-5 py-3 rounded-xl glass-card text-slate-400 hover:text-white font-code text-xs flex items-center gap-2">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800 text-center">
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-code text-sky-400">200+</div>
+            <div class="text-xs text-slate-400 mt-0.5">Hackathon Participants Led</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-code text-indigo-400">3+</div>
+            <div class="text-xs text-slate-400 mt-0.5">Industry Certifications</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-code text-emerald-400">2+</div>
+            <div class="text-xs text-slate-400 mt-0.5">Key Data Science Projects</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold font-code text-amber-400">6.5</div>
+            <div class="text-xs text-slate-400 mt-0.5">CGPA B.Tech CSE @ LPU</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Navigation Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        
+        <a href="skills.html" class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-sky-500 transition-all border border-slate-800 group">
+          <div>
+            <div class="p-3 rounded-xl bg-sky-500/10 text-sky-400 text-2xl w-fit mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100 mb-1">Technical Skills</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Python, NumPy, Pandas, scikit-learn, Power BI, SciPy, Plotly, MySQL, C++, JavaScript.</p>
+          </div>
+          <div class="mt-4 text-xs font-code text-sky-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Explore Skills Stack</span> <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+
+        <a href="projects.html" class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-sky-500 transition-all border border-slate-800 group">
+          <div>
+            <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 text-2xl w-fit mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100 mb-1">Data Projects</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">IPL Ball-by-Ball Logistic Regression ML Classifier & Power BI Adidas vs Nike Executive Sales Dashboard.</p>
+          </div>
+          <div class="mt-4 text-xs font-code text-indigo-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Launch Interactive Case Studies</span> <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+
+        <a href="certifications.html" class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-sky-500 transition-all border border-slate-800 group">
+          <div>
+            <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 text-2xl w-fit mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100 mb-1">Certifications</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">Oracle OCI AI Foundation 2025, Oracle Data Platform 2025, and Prompt Engineering for Generative AI.</p>
+          </div>
+          <div class="mt-4 text-xs font-code text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Verify Credentials</span> <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="relative z-10 border-t border-slate-800 py-6 px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-code">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 Nishu Bhandari • Data Science & Engineering Portfolio
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="https://github.com/NishuBhandari" target="_blank" class="hover:text-sky-400"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/nishu-bhandarii" target="_blank" class="hover:text-sky-400"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:nishubhandari030@gmail.com" class="hover:text-sky-400"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast-notification glass-card border border-sky-500/40 text-sky-400 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-3">
+    <i class="fas fa-check-circle text-base"></i>
+    <span id="toast-message" class="text-xs font-code text-white">Action successful</span>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
