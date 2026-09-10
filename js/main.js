@@ -852,6 +852,12 @@ function handleContactFormSubmit(event) {
   const subject = form.querySelector('[name="subject"]')?.value || '';
   const message = form.querySelector('[name="message"]')?.value || '';
 
+  // Dynamically set redirect URL to current domain / page
+  const nextInput = form.querySelector('[name="_next"]');
+  if (nextInput) {
+    nextInput.value = window.location.origin + window.location.pathname + '?sent=true';
+  }
+
   // Save message into Local Storage log (viewable in Owner Portal)
   try {
     const existingMsgs = JSON.parse(localStorage.getItem('nishu_portfolio_contact_messages') || '[]');
