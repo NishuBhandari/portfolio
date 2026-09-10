@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProfileUpload();
   initAdminShortcut();
   initSecretLogoClick();
+  checkSentQueryParam();
 });
 
 /* 1. Interactive Data Science Constellation & Ambient Glow Canvas */
@@ -497,6 +498,20 @@ function createAdminModalHTML() {
               <span>Test Download</span>
             </button>
           </div>
+
+          <!-- Received Messages Log -->
+          <div class="pt-4 border-t border-slate-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-code text-sky-400 flex items-center gap-1.5 font-bold">
+                <i class="fas fa-inbox text-xs"></i>
+                <span>Received Visitor Messages Log</span>
+              </span>
+              <button onclick="clearContactMessagesLog()" class="text-[10px] text-slate-500 hover:text-red-400">Clear Log</button>
+            </div>
+            <div id="admin-messages-list" class="max-h-48 overflow-y-auto space-y-2 text-xs font-code">
+              <p class="text-slate-500 text-[11px] italic">No messages received yet.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -524,13 +539,45 @@ function unlockAdminPasscode() {
 
 function updateAdminModalUI() {
   const statusEl = document.getElementById('admin-cv-status');
-  if (!statusEl) return;
+  if (statusEl) {
+    const customCvName = localStorage.getItem('nishu_portfolio_cv_filename');
+    if (customCvName) {
+      statusEl.innerHTML = `<span class="text-emerald-400">Custom Active:</span> ${escapeHtml(customCvName)}`;
+    } else {
+      statusEl.innerHTML = `<span class="text-sky-400">Default Active:</span> Nishu_Bhandari_Resume.html`;
+    }
+  }
 
-  const customCvName = localStorage.getItem('nishu_portfolio_cv_filename');
-  if (customCvName) {
-    statusEl.innerHTML = `<span class="text-emerald-400">Custom Active:</span> ${escapeHtml(customCvName)}`;
-  } else {
-    statusEl.innerHTML = `<span class="text-sky-400">Default Active:</span> Nishu_Bhandari_Resume.html`;
+  // Render submitted contact messages log
+  const msgListEl = document.getElementById('admin-messages-list');
+  if (msgListEl) {
+    try {
+      const msgs = JSON.parse(localStorage.getItem('nishu_portfolio_contact_messages') || '[]');
+      if (msgs.length === 0) {
+        msgListEl.innerHTML = '<p class="text-slate-500 text-[11px] italic">No visitor messages received yet.</p>';
+      } else {
+        msgListEl.innerHTML = msgs.map(m => `
+          <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-slate-300 font-bold">
+              <span>${escapeHtml(m.name)} (&lt;${escapeHtml(m.email)}&gt;)</span>
+              <span class="text-[10px] text-slate-500 font-normal">${escapeHtml(m.date || '')}</span>
+            </div>
+            <div class="text-[11px] text-sky-400 font-semibold">${escapeHtml(m.subject)}</div>
+            <div class="text-slate-400 text-xs font-sans leading-normal whitespace-pre-wrap">${escapeHtml(m.message)}</div>
+          </div>
+        `).join('');
+      }
+    } catch (e) {
+      msgListEl.innerHTML = '<p class="text-red-400 text-xs">Error loading messages log.</p>';
+    }
+  }
+}
+
+function clearContactMessagesLog() {
+  if (confirm('Clear all stored visitor messages from log?')) {
+    localStorage.removeItem('nishu_portfolio_contact_messages');
+    updateAdminModalUI();
+    showToast('Contact messages log cleared.');
   }
 }
 
@@ -795,5 +842,39 @@ function initProfileUpload() {
 
     reader.readAsDataURL(file);
   });
+}
+
+/* 12. Direct Contact Form Email Handler (Native FormSubmit POST + Local Log Backup) */
+function handleContactFormSubmit(event) {
+  const form = event.target;
+  const name = form.querySelector('[name="name"]')?.value || '';
+  const email = form.querySelector('[name="email"]')?.value || '';
+  const subject = form.querySelector('[name="subject"]')?.value || '';
+  const message = form.querySelector('[name="message"]')?.value || '';
+
+  // Save message into Local Storage log (viewable in Owner Portal)
+  try {
+    const existingMsgs = JSON.parse(localStorage.getItem('nishu_portfolio_contact_messages') || '[]');
+    existingMsgs.unshift({
+      name: name,
+      email: email,
+      subject: subject,
+      message: message,
+      date: new Date().toLocaleString()
+    });
+    localStorage.setItem('nishu_portfolio_contact_messages', JSON.stringify(existingMsgs.slice(0, 50)));
+  } catch (e) {
+    console.warn('LocalStorage contact save error:', e);
+  }
+
+  showToast('Submitting message to FormSubmit...');
+}
+
+function checkSentQueryParam() {
+  if (window.location.search.includes('sent=true')) {
+    setTimeout(() => {
+      showToast('✅ Message sent successfully! Delivered to Nishu\'s email.');
+    }, 500);
+  }
 }
 
