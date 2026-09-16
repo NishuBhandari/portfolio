@@ -648,7 +648,6 @@ function initTerminal() {
     education: `{
   "university": "Lovely Professional University",
   "degree": "B.Tech CSE",
-  "cgpa": "6.5",
   "period": "2024 - Present"
 }`,
 
